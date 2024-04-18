@@ -10,6 +10,7 @@ import {
 import { createProductDto } from './dto/createProduct.dto';
 import { ProductService } from './product.service';
 import { Product } from './interface/product.interface';
+import { updateProductDto } from './dto/updateProduct.dto';
 
 @Controller('product')
 export class ProductController {
@@ -29,12 +30,11 @@ export class ProductController {
   }
 
   @Put(':id')
-  update(
-    @Body() updateProductDto: createProductDto,
-    @Param('id') id,
-  ): Promise<Product> {
-    return this.productService.update(id, updateProductDto);
+  update(@Param('id') id: string, @Body() UpdateProductDto: updateProductDto) {
+    return this.productService.update(id, UpdateProductDto);
   }
-  @Delete()
-  delete() {}
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.productService.remove(id);
+  }
 }

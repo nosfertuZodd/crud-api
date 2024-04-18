@@ -1,14 +1,14 @@
 import { Prop } from '@nestjs/mongoose';
 import { IsNotEmpty } from 'class-validator';
 
-export class createProductDto {
+export class CreateUserDto {
   @IsNotEmpty()
   @Prop()
   readonly name: string;
   @IsNotEmpty()
   @Prop()
-  readonly stock: string;
+  readonly email: string;
   @IsNotEmpty()
   @Prop()
-  readonly quantity: string;
+  readonly password: string;
 }
