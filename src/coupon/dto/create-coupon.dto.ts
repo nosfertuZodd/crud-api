@@ -1,4 +1,4 @@
 export class CreateCouponDto {
-  private readonly id?: string;
+  private readonly couponId?: string;
   private readonly title: string;
 }

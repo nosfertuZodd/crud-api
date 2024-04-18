@@ -1,9 +1,8 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { CreateCouponDto } from './dto/create-coupon.dto';
 import { UpdateCouponDto } from './dto/update-coupon.dto';
-import { Coupon } from './entities/coupon.entity';
+import { Coupon } from './interace/coupon.entity';
 import { Model } from 'mongoose';
-import generateUniqueId from 'generate-unique-id';
 
 @Injectable()
 export class CouponService {
