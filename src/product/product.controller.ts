@@ -11,14 +11,29 @@ import { createProductDto } from './dto/createProduct.dto';
 import { ProductService } from './product.service';
 import { Product } from './interface/product.interface';
 import { updateProductDto } from './dto/updateProduct.dto';
+import { CouponService } from 'src/coupon/coupon.service';
+import { CreateCouponDto } from 'src/coupon/dto/create-coupon.dto';
 
 @Controller('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(
+    private readonly productService: ProductService,
+    private readonly couponService: CouponService,
+  ) {}
+
+  @Post('qr')
+  qrCode() {}
+
   @Post()
-  create(@Body() CreateProductDto: createProductDto) {
+  create(
+    @Body() CreateProductDto: createProductDto,
+    @Body() createCouponDto: CreateCouponDto,
+  ) {
     const product = this.productService.create(CreateProductDto);
-    return product;
+    // const qr = this.productService.generateQrCode();
+    const coupon = this.couponService.create(createCouponDto);
+
+    return { product: product, coupon: coupon };
   }
   @Get()
   findAll() {

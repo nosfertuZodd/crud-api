@@ -4,4 +4,5 @@ export interface Product extends Document {
   readonly name: string;
   readonly stock: number;
   readonly quantity: number;
+  readonly qr: string;
 }

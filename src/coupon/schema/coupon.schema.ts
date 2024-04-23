@@ -1,6 +1,19 @@
-import * as mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
-export const CouponSchema = new mongoose.Schema({
-  couponId: String,
-  title: String,
-});
+@Schema()
+export class Coupon {
+  @Prop()
+  @IsNotEmpty()
+  applyCoupon: string;
+
+  @Prop()
+  @IsNotEmpty()
+  couponId: string;
+
+  @Prop()
+  @IsOptional()
+  title: string;
+}
+
+export const CouponSchema = SchemaFactory.createForClass(Coupon);

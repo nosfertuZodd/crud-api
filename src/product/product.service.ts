@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { Product } from './interface/product.interface';
 import { createProductDto } from './dto/createProduct.dto';
 import { updateProductDto } from './dto/updateProduct.dto';
+import * as qrcode from 'qrcode';
 
 @Injectable()
 export class ProductService {
@@ -10,9 +11,14 @@ export class ProductService {
     @Inject('PRODUCT_MODEL')
     private productModel: Model<Product>,
   ) {}
-  create(CreateProductDto: createProductDto): Promise<Product> {
+
+  async generateQrCode() {}
+  async create(CreateProductDto: createProductDto): Promise<Product> {
     const createdProduct = new this.productModel(CreateProductDto);
-    return createdProduct.save();
+    const qrCodeDataURL = await qrcode.toDataURL('data');
+    return await { ...createdProduct.save(), qrCodeDataURL };
+
+    // return createdProduct.save();
   }
   findAll(): Promise<Product[]> {
     return this.productModel.find().exec();
