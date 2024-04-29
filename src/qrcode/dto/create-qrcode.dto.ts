@@ -1,6 +1,9 @@
-import { IsNotEmpty } from 'class-validator';
-
+import { IsNotEmpty, IsString } from 'class-validator';
+import * as qrcode from 'qrcode';
 export class CreateQrcodeDto {
   @IsNotEmpty()
-  private readonly code?: any;
+  code: string;
+
+  @IsString()
+  productId: string;
 }

@@ -16,8 +16,8 @@ export class QrcodeController {
   constructor(private readonly qrcodeService: QrcodeService) {}
 
   @Post()
-  create() {
-    const qr = this.qrcodeService.create();
+  create(@Body() createQrcodeDto: CreateQrcodeDto) {
+    const qr = this.qrcodeService.create(createQrcodeDto);
     return qr;
   }
 

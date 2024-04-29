@@ -3,16 +3,19 @@ import { CreateQrcodeDto } from './dto/create-qrcode.dto';
 import { UpdateQrcodeDto } from './dto/update-qrcode.dto';
 import * as qrcode from 'qrcode';
 import { Model } from 'mongoose';
-import { Qrcode } from './interface/qrcode.entity';
+import { Qrcode } from './interface/qrcode.interface';
 
 @Injectable()
 export class QrcodeService {
   constructor(@Inject('QRCODE_MODEL') private qrcodeModel: Model<Qrcode>) {}
 
-  async create() {
-    const qrCodeDataURL = await qrcode.toDataURL('data');
-    const qr = new this.qrcodeModel({ qrCodeDataURL });
-    return await qr.save();
+  async create(createQrcodeDto: CreateQrcodeDto) {
+    const qrCodeDataURL = await qrcode.toDataURL(JSON.stringify('data'));
+    createQrcodeDto.code = qrCodeDataURL;
+    // console.log(qrCodeDataURL);
+
+    const qr = new this.qrcodeModel(createQrcodeDto).save();
+    return qr;
   }
 
   findAll() {
